@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 const Signup = () => {
 
@@ -6,6 +5,7 @@ const Signup = () => {
     return (
         <div>
             sign up page
+            
         </div>
     );
 };
