@@ -4,6 +4,7 @@ const Navbar = () => {
     const navitems = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/products">Products</NavLink></li>
+        <li><NavLink to="/addProduct">Add Product</NavLink></li>
         <li><NavLink to="/orders">Orders</NavLink></li>
         <select className="select select-ghost w-fit ">
             <option disabled selected>Category</option>
