@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../Components/ProductCard";
+import ProductDetailsModal from "../Components/ProductDetailsModal";
 
 const Products = () => {
 
@@ -12,29 +13,19 @@ const Products = () => {
 
     return (
         <div className="">
-            <div className="flex flex-wrap gap-5 justify-evenly p-10">
-                {
-                    products.map((p, i) =>
-                        <>
-                            <button className="btn" onClick={() => document.getElementById('my_modal_5').showModal()}>
-                                <div key={i}><ProductCard product={p} /></div>
-                            </button>
-                        </>)
-                }
-            </div>
-            {/* Open the modal using document.getElementById('ID').showModal() method */}
-            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">Press ESC key or click the button below to close</p>
-                    <div className="modal-action">
-                        <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">Close</button>
-                        </form>
-                    </div>
+            {products.length < 1 ?
+                <div className="mx-auto w-fit mt-20"><span className="loading  loading-ring loading-lg" /></div>
+                :
+                <div className="flex flex-wrap gap-5 justify-evenly p-10">
+                    {
+                        products.map((p, i) =>
+                            <>
+                                <div key={i}><ProductCard id={i} product={p} /></div>
+                                <ProductDetailsModal id={i} product={p} />
+                            </>)
+                    }
                 </div>
-            </dialog>
+            }
         </div>
 
 
