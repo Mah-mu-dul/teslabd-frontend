@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"  # Change this command if you're using a different build script
+  publish = "dist"           # Change this directory if your build output directory is different
+
+[[redirects]]
+  # Redirect all requests to the index.html file
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  # Set default cache headers
+  # You can adjust cache-control directives as needed
+  for = "/*"
+    [headers.values]
+      Cache-Control = "public, max-age=0, must-revalidate"
+
+# Uncomment the following lines if you're using client-side routing with React Router
+#[[redirects]]
+#  # Redirect specific paths to index.html to enable client-side routing
+#  from = "/your-client-side-route/*"
+#  to = "/index.html"
+#  status = 200

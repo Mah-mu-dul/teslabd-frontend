@@ -58,8 +58,8 @@ const ProductDetailsModal = ({ id, product }) => {
                     </div>
                     <p className="py-4 h-52 overflow-y-scroll"><strong>Specification: </strong>{product.description + product.description}</p>
                     <div className="modal-action mt-0">
+
                         <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
                             <button className="btn btn-circle btn-sm absolute right-3 top-3 z-30">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
@@ -69,6 +69,9 @@ const ProductDetailsModal = ({ id, product }) => {
                         <NavLink target='_blank' to="https://www.youtube.com/shorts/g9tvub8cn7o" className="btn ">Tutorial Link</NavLink>
                         <button className="btn btn-primary">Add to cart <FaCartPlus /></button>
                         <button className="btn btn-primary">Order Now</button>
+
+
+
                     </div>
                 </div>
             </dialog>

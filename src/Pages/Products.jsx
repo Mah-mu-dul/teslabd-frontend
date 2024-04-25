@@ -16,11 +16,13 @@ const Products = () => {
             {products.length < 1 ?
                 <div className="mx-auto w-fit mt-20"><span className="loading  loading-ring loading-lg" /></div>
                 :
-                <div className="flex flex-wrap gap-5 justify-evenly p-10">
+                <div className="flex flex-wrap gap-5 items-stretch  justify-evenly p-10">
                     {
                         products.map((p, i) =>
                             <>
-                                <div key={i}><ProductCard id={i} product={p} /></div>
+                                <div key={i} className="flex items-stretch ">
+                                    <ProductCard id={i} product={p} />
+                                </div>
                                 <ProductDetailsModal id={i} product={p} />
                             </>)
                     }
