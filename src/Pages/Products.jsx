@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import ProductCard from "../Components/ProductCard";
 import ProductDetailsModal from "../Components/ProductDetailsModal";
 
-const Products = () => {
+const Products = ({ cart, setCart }) => {
 
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
+        fetch('../../DB/products.json')
             .then(res => res.json())
             .then(json => setProducts(json))
     }, [])
@@ -21,9 +21,9 @@ const Products = () => {
                         products.map((p, i) =>
                             <>
                                 <div key={i} className="flex items-stretch ">
-                                    <ProductCard id={i} product={p} />
+                                    <ProductCard cart={cart} setCart={setCart} id={i} product={p} />
                                 </div>
-                                <ProductDetailsModal id={i} product={p} />
+                                <ProductDetailsModal cart={cart} setCart={setCart} id={i} product={p} />
                             </>)
                     }
                 </div>

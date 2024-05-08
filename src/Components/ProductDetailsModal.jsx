@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaCartPlus } from 'react-icons/fa';
 
-const ProductDetailsModal = ({ id, product }) => {
+const ProductDetailsModal = ({ cart, setCart, id, product }) => {
     const [quantity, setQuantity] = useState(1);
 
     const handleChange = (e) => {
@@ -12,7 +12,19 @@ const ProductDetailsModal = ({ id, product }) => {
         if (!isNaN(value) && value > 0) {
             setQuantity(value);
         }
-    }; return (
+    };
+
+    const handleAddToCart = (productId) => {
+        const productIndex = cart.findIndex(item => item.productId === productId);
+        const updatedCart = [...cart];
+
+        productIndex !== -1
+            ? updatedCart[productIndex].quantity = quantity
+            : updatedCart.push({ productId: productId, quantity: quantity});
+
+        setCart(updatedCart);
+    };
+    return (
         <div>
             <dialog id={id} className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box ">
@@ -21,27 +33,27 @@ const ProductDetailsModal = ({ id, product }) => {
                             className=''
                             spaceBetween={50}
                             slidesPerView={3}
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}
+                        // onSlideChange={() => console.log('slide change')}
+                        // onSwiper={(swiper) => console.log(swiper)}
                         >
                             <SwiperSlide >
-                                <img className='max-w-full cursor-grab max-h-52 ' src={product?.image} alt={product.title} />
+                                <img className='max-w-full cursor-grab max-h-52 ' src={product?.img[[0]]} alt={product.title} />
                             </SwiperSlide>
                             <SwiperSlide >
-                                <img className='max-w-full cursor-grab max-h-52 ' src={product?.image} alt={product.title} />
+                                <img className='max-w-full cursor-grab max-h-52 ' src={product?.img[[0]]} alt={product.title} />
                             </SwiperSlide>
                             <SwiperSlide >
-                                <img className='max-w-full cursor-grab max-h-52 ' src={product?.image} alt={product.title} />
+                                <img className='max-w-full cursor-grab max-h-52 ' src={product?.img[[0]]} alt={product.title} />
                             </SwiperSlide>
                             <SwiperSlide >
-                                <img className='max-w-full cursor-grab max-h-52 ' src={product?.image} alt={product.title} />
+                                <img className='max-w-full cursor-grab max-h-52 ' src={product?.img[[0]]} alt={product.title} />
                             </SwiperSlide>
 
                         </Swiper>
                         <div className="flex gap-4 flex-wrap mt-2">
-                            <img className='max-w-[8] max-h-8 ' src={product?.image} alt={product.title} />
-                            <img className='max-w-[8] max-h-8 ' src={product?.image} alt={product.title} />
-                            <img className='max-w-[8] max-h-8 ' src={product?.image} alt={product.title} />
+                            <img className='max-w-[8] max-h-8 ' src={product?.img[[0]]} alt={product.title} />
+                            <img className='max-w-[8] max-h-8 ' src={product?.img[[0]]} alt={product.title} />
+                            <img className='max-w-[8] max-h-8 ' src={product?.img[[0]]} alt={product.title} />
                         </div>
                     </div>
                     <br />
@@ -49,6 +61,10 @@ const ProductDetailsModal = ({ id, product }) => {
                     <div className="flex items-center justify-between mt-5">
                         <div className="flex gap-5 flex-wrap">
                             <div className="badge badge-outline p-3">Price: {product?.price} Taka</div>
+                        </div>
+                        <div className="flex gap-5 flex-wrap">
+                            <div className="badge badge-outline p-3">
+                                Total Price: <span className='font-semibold text-orange-500 '>{product?.price * quantity} </span> Taka</div>
                         </div>
                         <div className="flex items-center ">
                             <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="btn rounded-r  ">-</button>
@@ -67,7 +83,7 @@ const ProductDetailsModal = ({ id, product }) => {
                     </div>
                     <div className="flex  justify-between items-center mt-3">
                         <NavLink target='_blank' to="https://www.youtube.com/shorts/g9tvub8cn7o" className="btn ">Tutorial Link</NavLink>
-                        <button className="btn btn-primary">Add to cart <FaCartPlus /></button>
+                        <button onClick={() => handleAddToCart(product.id)} className="btn btn-primary">Add to cart <FaCartPlus /></button>
                         <button className="btn btn-primary">Order Now</button>
 
 

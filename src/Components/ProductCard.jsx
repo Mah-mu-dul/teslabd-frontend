@@ -8,7 +8,7 @@ const ProductCard = ({ id, product }) => {
             <button className="" onClick={() => document.getElementById(id).showModal()}>
                 <figure>
                     {/* <img className='max-w-full max-h-52' src={product?.image} alt={product.title} /> */}
-                    <img className='max-w-full max-h-52' src="https://store.roboticsbd.com/6367-large_default/monster-moto-shield-dual-vnh2sp30-motor-driver-module-30a-robotics-bangladesh.jpg" alt={product.title} />
+                    <img className='max-w-full max-h-52' src={product?.img[0]} alt={product.title} />
                 </figure>
             </button>
             <div className="card-body items-center p-5">
