@@ -4,8 +4,15 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaCartPlus } from 'react-icons/fa';
 
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ProductDetailsModal = ({ cart, setCart, id, product }) => {
     const [quantity, setQuantity] = useState(1);
+
+
+    const notify = () => toast.success("Email Sent");
 
     const handleChange = (e) => {
         const value = parseInt(e.target.value);
@@ -14,13 +21,13 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
         }
     };
 
-    const handleAddToCart = (productId) => {
+    const handleAddToCart = (productId, price) => {
         const productIndex = cart.findIndex(item => item.productId === productId);
         const updatedCart = [...cart];
 
         productIndex !== -1
             ? updatedCart[productIndex].quantity = quantity
-            : updatedCart.push({ productId: productId, quantity: quantity});
+            : updatedCart.push({ productId: productId, quantity: quantity, ProductTotalPrice: quantity * price });
 
         setCart(updatedCart);
     };
@@ -29,6 +36,7 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
             <dialog id={id} className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box ">
                     <div className="">
+                        <ToastContainer />
                         <Swiper
                             className=''
                             spaceBetween={50}
@@ -83,8 +91,8 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
                     </div>
                     <div className="flex  justify-between items-center mt-3">
                         <NavLink target='_blank' to="https://www.youtube.com/shorts/g9tvub8cn7o" className="btn ">Tutorial Link</NavLink>
-                        <button onClick={() => handleAddToCart(product.id)} className="btn btn-primary">Add to cart <FaCartPlus /></button>
-                        <button className="btn btn-primary">Order Now</button>
+                        <button onClick={() => handleAddToCart(product.id, product.price)} className="btn btn-primary">Add to cart <FaCartPlus /></button>
+                        <button onClick={() => notify} className="btn btn-primary">Order Now</button>
 
 
 

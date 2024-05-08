@@ -4,7 +4,7 @@
             "img": ["https://5.imimg.com/data5/SELLER/Default/2023/11/358233540/TN/XQ/LH/5015976/arduino-uno-microcontroller-boards.png"],
             "title": "Arduino Uno",
             "model": "R3",
-            "price": "1000",    
+            "price": "980",    
             "quantity": "500",
             "rating": 3,
             "description": "The Arduino UNO is the best board to get started with electronics and coding. If this is your first experience tinkering with the platform, the UNO is the most robust board you can start playing with. The UNO is the most used and documented board of the whole Arduino family."
@@ -14,7 +14,7 @@
             "img": ["https://static-01.daraz.com.bd/p/e2a408352e3ecc03233308571760f854.jpg"],
             "title": "HC-05",
             "model": "R3",
-            "price": "1000",
+            "price": "300",
             "quantity": "500",
             "rating": 3,
             "description": "The Arduino UNO is the best board to get started with electronics and coding. If this is your first experience tinkering with the platform, the UNO is the most robust board you can start playing with. The UNO is the most used and documented board of the whole Arduino family."
@@ -25,32 +25,32 @@
             "img": ["https://m.media-amazon.com/images/I/61yhu4EYJeL._AC_UF1000,1000_QL80_.jpg"],
             "title": "Monster Moto Shield VNH2SP30",
             "model": "R3",
-            "price": "1000",
+            "price": "800",
             "quantity": "500",
             "rating": 3,
             "description": "The Arduino UNO is the best board to get started with electronics and coding. If this is your first experience tinkering with the platform, the UNO is the most robust board you can start playing with. The UNO is the most used and documented board of the whole Arduino family."
 
         },
         {
-            "id": "arduinouno1124",
-            "img": ["https://5.imimg.com/data5/SELLER/Default/2023/11/358233540/TN/XQ/LH/5015976/arduino-uno-microcontroller-boards.png"],
-            "title": "Arduino Uno",
+            "id": "25GA-370-24V-130",
+            "img": ["https://zbotic.in/wp-content/uploads/2023/09/vy9fth7s.png"],
+            "title": "25GA-370-24V-130 RPM DC Gear Motor",
             "model": "R3",
             "price": "1000",
             "quantity": "500",
             "rating": 3,
-            "description": "The Arduino UNO is the best board to get started with electronics and coding. If this is your first experience tinkering with the platform, the UNO is the most robust board you can start playing with. The UNO is the most used and documented board of the whole Arduino family."
+            "description": "Introducing the versatile and reliable 25GA-370-24V-130 RPM DC Gear Motor, engineered for robotics enthusiasts and automation projects of all kinds. This motor offers exceptional performance and comes in various configurations to suit your specific design needs. Featuring a compact cylindrical shape with a 25mm diameter and a 4mm shaft, this motor is equipped with 2 terminal connectors for easy installation. Its design focuses on generating high torque while consuming minimal current, making it an ideal choice for a wide range of applications."
 
         },
         {
-            "id": "arduinouno1125",
-            "img": ["https://5.imimg.com/data5/SELLER/Default/2023/11/358233540/TN/XQ/LH/5015976/arduino-uno-microcontroller-boards.png"],
-            "title": "Arduino Uno",
+            "id": "Servo1",
+            "img": ["https://m.media-amazon.com/images/I/61yfIwAxe0L.jpg"],
+            "title": "TowerPro SG 90 Micro Servo Motor",
             "model": "R3",
             "price": "1000",
             "quantity": "500",
-            "rating": 3,
-            "description": "The Arduino UNO is the best board to get started with electronics and coding. If this is your first experience tinkering with the platform, the UNO is the most robust board you can start playing with. The UNO is the most used and documented board of the whole Arduino family."
+            "rating": 4,
+            "description": "A servomotor is a closed-loop servomechanism that uses position feedback (either linear or rotational position) to control its motion and final position. The input to its control is a signal (either analog or digital) representing the desired position of the output shaft."
 
         },
         {
