@@ -8,10 +8,13 @@ import Profile from "./Pages/Profile"
 import Signin from "./Pages/Signin"
 import Signup from "./Pages/Signup"
 import AddProduct from "./Pages/AddProduct"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <main className="w-full max-w-[1500px] mx-auto bg-lime-100 min-h-screen">
