@@ -54,15 +54,16 @@
 
         },
         {
-            "id": "arduinouno1126",
-            "img": ["https://5.imimg.com/data5/SELLER/Default/2023/11/358233540/TN/XQ/LH/5015976/arduino-uno-microcontroller-boards.png"],
-            "title": "Arduino Uno",
-            "model": "R3",
-            "price": "1000",
+            "id": "l298n1",
+            "img": ["https://5.imimg.com/data5/PW/SE/CI/SELLER-56361265/l298n-motor-driver-board-module-l298-stepper-motor-smart-car-robot-500x500.png"],
+            "title": "L298n Motor Driver",
+            "model": "L298N",
+            "price": "470",
             "quantity": "500",
-            "rating": 3,
-            "description": "The Arduino UNO is the best board to get started with electronics and coding. If this is your first experience tinkering with the platform, the UNO is the most robust board you can start playing with. The UNO is the most used and documented board of the whole Arduino family."
+            "rating": 4,
+            "description": "<div >L298N as main chip, ST corporation production.<br>Low heat,outstanding anti-interference performance. High working power to 46v,large current can reach 3A MAX and continue current is 2A, power to 25w. Can drive one 2-phase stepper motor, one 4-phase stepper motor or two DC motors. Built-in 78M05,get power from drive power,however, when drive power over 12V, please use the external 5v power as power supply. Large capacity filter capacitance, afterflow protection diode, more stable and reliable. ?<br><strong>Specification:</strong><br>Double H bridge drive<br>Chip: L298N (ST NEW)<br>Logical voltage: 5V<br>Drive voltage: 5V-35V<br>Logical current: 0mA-36mA<br>Drive current: 2A(MAX single bridge)<br>Max power: 25W<br>Size:43 x 43 x 26mm<br>Net weight: 26g<br>Package weight:36g<br>Note:<br>This module has a built-in 5v power supply, when the driving voltage is 7v-35v, this supply is suitable for power supply DO NOT input voltage to 5v supply interface, however ledding out 5v for external use is available.<br>When ENA enable IN1 IN2 control OUT1 OUT2<br>When ENB enable IN3 IN4 control OUT3 OUT4 ?<br>Package contents:<br>1x L298N Dual H Bridge DC Stepper Motor Drive Controller Board Module For arduino</div>"
 
         }
     ]
+    
     

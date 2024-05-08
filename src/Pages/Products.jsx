@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../Components/ProductCard";
 import ProductDetailsModal from "../Components/ProductDetailsModal";
+import productsData from '../db/products.json';
 
 const Products = ({ cart, setCart }) => {
 
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch('../db/products.json')
-            .then(res => res.json())
-            .then(json => setProducts(json))
+        // fetch(productsData)
+        //     .then(res => res.json())
+        //     .then(json => setProducts(json))
+        setProducts(productsData)
     }, [])
 
     return (

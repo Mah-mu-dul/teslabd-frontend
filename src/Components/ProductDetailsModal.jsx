@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaCartPlus } from 'react-icons/fa';
 
@@ -11,6 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const ProductDetailsModal = ({ cart, setCart, id, product }) => {
     const [quantity, setQuantity] = useState(1);
 
+    useEffect(() => {
+        cart.find(c => c.productId == product.id ? setQuantity(c.quantity) : 1)
+    }, [cart])
 
     const notify = () => toast.success("Email Sent");
 
@@ -25,10 +28,12 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
         const productIndex = cart.findIndex(item => item.productId === productId);
         const updatedCart = [...cart];
 
-        productIndex !== -1
-            ? updatedCart[productIndex].quantity = quantity
-            : updatedCart.push({ productId: productId, quantity: quantity, ProductTotalPrice: quantity * price });
-
+        if (productIndex !== -1) {
+            updatedCart[productIndex].quantity = quantity;
+            updatedCart[productIndex].ProductTotalPrice = quantity * price;
+        } else {
+            updatedCart.push({ productId: productId, quantity: quantity, ProductTotalPrice: quantity * price });
+        }
         setCart(updatedCart);
     };
     return (
@@ -80,7 +85,7 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
                             <button onClick={() => setQuantity(quantity + 1)} className="btn rounded-l ">+</button>
                         </div>
                     </div>
-                    <p className="py-4 h-52 overflow-y-scroll"><strong>Specification: </strong>{product.description + product.description}</p>
+                    <p className="py-4 h-52 overflow-y-scroll"><div dangerouslySetInnerHTML={{ __html: product.description }} /></p>
                     <div className="modal-action mt-0">
 
                         <form method="dialog">
