@@ -54,7 +54,7 @@ const Navbar = ({ cart }) => {
                         <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
                             <div className="card-body">
                                 <span className="font-bold text-lg">{cart.length} {cart.length > 1 ? "Items" : "Item"} </span>
-                                <span className="text-info">Subtotal: $ {totalPrice}</span>
+                                <span className="text-info">Subtotal:  {totalPrice} /-</span>
                                 <div className="card-actions">
                                     <NavLink to="/cart" className="btn btn-primary btn-block">View cart</NavLink>
                                 </div>

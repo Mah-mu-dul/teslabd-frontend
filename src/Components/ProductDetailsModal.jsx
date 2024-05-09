@@ -42,6 +42,10 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
                 <div className="modal-box ">
                     <div className="">
                         <ToastContainer />
+                        <div className="badge badge-success gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-4 h-4 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            success
+                        </div>
                         <Swiper
                             className=''
                             spaceBetween={50}
@@ -71,13 +75,13 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
                     </div>
                     <br />
                     <h3 className="font-bold text-lg">{product.title}</h3>
-                    <div className="flex items-center justify-between mt-5">
+                    <div className="flex items-center justify-between gap-y-5 flex-wrap text-nowrap mt-5">
                         <div className="flex gap-5 flex-wrap">
                             <div className="badge badge-outline p-3">Price: {product?.price} Taka</div>
                         </div>
                         <div className="flex gap-5 flex-wrap">
                             <div className="badge badge-outline p-3">
-                                Total Price: <span className='font-semibold text-orange-500 '>{product?.price * quantity} </span> Taka</div>
+                                Total Price: <span className='font-semibold text-orange-500 mx-1'> {product?.price * quantity} </span> Taka</div>
                         </div>
                         <div className="flex items-center ">
                             <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="btn rounded-r  ">-</button>
@@ -94,13 +98,10 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
                             </button>
                         </form>
                     </div>
-                    <div className="flex  justify-between items-center mt-3">
+                    <div className="flex gap-2 flex-wrap  justify-between items-center mt-3">
                         <NavLink target='_blank' to="https://www.youtube.com/shorts/g9tvub8cn7o" className="btn ">Tutorial Link</NavLink>
                         <button onClick={() => handleAddToCart(product.id, product.price)} className="btn btn-primary">Add to cart <FaCartPlus /></button>
                         <button onClick={() => notify} className="btn btn-primary">Order Now</button>
-
-
-
                     </div>
                 </div>
             </dialog>
