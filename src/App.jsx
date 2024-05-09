@@ -9,6 +9,7 @@ import Signin from "./Pages/Signin"
 import Signup from "./Pages/Signup"
 import AddProduct from "./Pages/AddProduct"
 import { useEffect, useState } from "react"
+import { ToastContainer } from "react-toastify"
 
 function App() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
@@ -18,6 +19,11 @@ function App() {
 
   return (
     <main className="w-full max-w-[1500px] mx-auto bg-lime-100 min-h-screen">
+      <div className=" z-10">
+        <ToastContainer
+          closeOnClick
+          />
+      </div>
       <Navbar cart={cart} />
       <Routes>
         <Route path="/" element={< Home />} />

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { FaCartPlus } from 'react-icons/fa';
 
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetailsModal = ({ cart, setCart, id, product }) => {
@@ -15,7 +15,6 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
         cart.find(c => c.productId == product.id ? setQuantity(c.quantity) : 1)
     }, [cart])
 
-    const notify = () => toast.success("Email Sent");
 
     const handleChange = (e) => {
         const value = parseInt(e.target.value);
@@ -35,17 +34,18 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
             updatedCart.push({ productId: productId, quantity: quantity, ProductTotalPrice: quantity * price });
         }
         setCart(updatedCart);
+        successNotify()
     };
+    const successNotify = () => {
+        toast.success("Item Added To Cart");
+    }
+
     return (
         <div>
             <dialog id={id} className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box ">
+
                     <div className="">
-                        <ToastContainer />
-                        <div className="badge badge-success gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-4 h-4 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                            success
-                        </div>
                         <Swiper
                             className=''
                             spaceBetween={50}
@@ -99,11 +99,15 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
                         </form>
                     </div>
                     <div className="flex gap-2 flex-wrap  justify-between items-center mt-3">
-                        <NavLink target='_blank' to="https://www.youtube.com/shorts/g9tvub8cn7o" className="btn ">Tutorial Link</NavLink>
-                        <button onClick={() => handleAddToCart(product.id, product.price)} className="btn btn-primary">Add to cart <FaCartPlus /></button>
-                        <button onClick={() => notify} className="btn btn-primary">Order Now</button>
+                        <NavLink target='_blank' to="https://www.youtube.com/shorts/g9tvub8cn7o" className="btn p-2 md:p-4 ">Tutorial Link</NavLink>
+                        <button onClick={() => handleAddToCart(product.id, product.price)} className="btn p-2 md:p-4 btn-primary">Add to cart <FaCartPlus /></button>
+                        <button className="btn p-2 md:p-4 btn-primary">Order Now</button>
+
                     </div>
                 </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
             </dialog>
         </div>
     );

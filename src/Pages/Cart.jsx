@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import productsData from '../db/products.json';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Cart = ({ cart, setCart }) => {
     const [productCart, setProductCart] = useState([]);
@@ -48,6 +49,11 @@ const Cart = ({ cart, setCart }) => {
 
     const handleDelete = id => {
         setCart(cart => cart.filter(c => c.productId !== id));
+        removeNotify()
+    }
+
+    const removeNotify = () => {
+        toast.warning("Item Removed From Cart");
     }
     return (
         <div className="container mx-auto px-4 py-8 ">
@@ -114,12 +120,12 @@ const Cart = ({ cart, setCart }) => {
                                                 <h3 className="text-lg font-semibold leading-snug sm:pr-8 max-w-96 text-wrap"> {product.title}</h3>
                                                 <p className="text-sm dark:text-gray-600">Classic</p>
                                             </div>
-                                            <div className="text-right flex md:block justify-between items-center ">
+                                            <div className=" ">
                                                 <div className="text-left lg:text-right">
                                                     <p className="text-md font-semibold">Unit Price: <span className='text-xl min-w-32'>{product.price} /-</span> </p>
                                                     <p className="text-md font-semibold">Total Price: <span className='text-xl min-w-32'>{product.price * product.orderQuantity} /-</span></p>
                                                 </div>
-                                                <div className="flex items-center justify-center mt-3">
+                                                <div className="flex items-center justify-end mt-3">
                                                     <button
                                                         className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 "
                                                         onClick={() => handleDecreaseQuantity(product.id)}                                                    >

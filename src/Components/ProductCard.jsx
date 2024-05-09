@@ -2,6 +2,7 @@
 import { BsCartDashFill, BsCartPlusFill } from "react-icons/bs";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ cart, setCart, id, product }) => {
 
@@ -13,6 +14,7 @@ const ProductCard = ({ cart, setCart, id, product }) => {
             ? ""
             : updatedCart.push({ productId: productId, quantity: 1, ProductTotalPrice: 1 * price });
         setCart(updatedCart);
+        addNotify()
     };
     console.log(cart);
 
@@ -22,9 +24,15 @@ const ProductCard = ({ cart, setCart, id, product }) => {
             const updatedCart = [...cart];
             updatedCart.splice(productIndex, 1); // Remove 1 item at the productIndex
             setCart(updatedCart);
+            removeNotify()
         }
     };
-
+    const removeNotify = () => {
+        toast.warning("Item Removed From Cart");
+    }
+    const addNotify = () => {
+        toast.success("Item Added To Cart");
+    }
     return (
         <div className="card glass w-72 overflow-hidden flex flex-col justify-between shadow-xl my-5">
             {
