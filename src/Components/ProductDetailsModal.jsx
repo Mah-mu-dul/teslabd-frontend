@@ -84,9 +84,9 @@ const ProductDetailsModal = ({ cart, setCart, id, product }) => {
                                 Total Price: <span className='font-semibold text-orange-500 mx-1'> {product?.price * quantity} </span> Taka</div>
                         </div>
                         <div className="flex items-center ">
-                            <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="btn rounded-r  ">-</button>
+                            <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="flex h-12 w-10 cursor-pointer items-center justify-center border duration-100">-</button>
                             <input type="number" value={quantity} onChange={handleChange} className="input rounded-none input-bordered w-16" min="1" />
-                            <button onClick={() => setQuantity(quantity + 1)} className="btn rounded-l ">+</button>
+                            <button onClick={() => setQuantity(quantity + 1)} className="flex h-12 w-10 cursor-pointer items-center justify-center border duration-100">+</button>
                         </div>
                     </div>
                     <p className="py-4 h-52 overflow-y-scroll"><div dangerouslySetInnerHTML={{ __html: product.description }} /></p>

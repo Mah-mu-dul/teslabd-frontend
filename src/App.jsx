@@ -13,6 +13,8 @@ import { ToastContainer } from "react-toastify"
 
 function App() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+  const [checkoutSelectedProducts, setCheckoutSelectedProducts] = useState([]);
+
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
@@ -22,15 +24,27 @@ function App() {
       <div className=" z-10">
         <ToastContainer
           closeOnClick
-          />
+        />
       </div>
       <Navbar cart={cart} />
       <Routes>
         <Route path="/" element={< Home />} />
         <Route path="/products" element={<Products cart={cart} setCart={setCart} />} />
         <Route path="/addProduct" element={<AddProduct />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
+        <Route path="/orders" element={
+          <Orders
+            checkoutSelectedProducts={checkoutSelectedProducts}
+            setCheckoutSelectedProducts={setCheckoutSelectedProducts}
+          />}
+        />
+        <Route path="/cart" element={
+          <Cart
+            cart={cart}
+            setCart={setCart}
+            checkoutSelectedProducts={checkoutSelectedProducts}
+            setCheckoutSelectedProducts={setCheckoutSelectedProducts}
+          />}
+        />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />

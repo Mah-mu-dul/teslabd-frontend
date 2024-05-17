@@ -3,11 +3,11 @@ import productsData from '../db/products.json';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Cart = ({ cart, setCart }) => {
+const Cart = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProducts }) => {
     const [productCart, setProductCart] = useState([]);
     const [subtotal, setSubtotal] = useState(0)
 
-    console.log(cart);
+    // console.log(cart);
     // console.log(productCart);
 
     useEffect(() => {
@@ -55,10 +55,42 @@ const Cart = ({ cart, setCart }) => {
     const removeNotify = () => {
         toast.warning("Item Removed From Cart");
     }
+
+    // select products for checkout
+    const handleSelectProduct = (product) => {
+        if (checkoutSelectedProducts.some(selected => selected.id === product.id)) {
+            setCheckoutSelectedProducts(checkoutSelectedProducts.filter(selected => selected.id !== product.id));
+        } else {
+            setCheckoutSelectedProducts([...checkoutSelectedProducts, product]);
+        }
+    };
+
+    const handleSelectAll = () => {
+        if (checkoutSelectedProducts.length === productCart.length) {
+            setCheckoutSelectedProducts([]);
+        } else {
+            setCheckoutSelectedProducts(productCart);
+        }
+    };
+
+    const isProductSelected = (product) => {
+        return checkoutSelectedProducts.some(selected => selected.id === product.id);
+    };
+
     return (
         <div className="container mx-auto px-4 py-8 ">
-            <div className="flex items-center flex-wrap justify-between">
+            <div className="">
                 <h1 className="text-2xl font-bold mb-4">Cart</h1>
+
+                <h1 className='flex items-center gap-5'>
+                    <input
+                        className='checkbox'
+                        type="checkbox"
+                        checked={checkoutSelectedProducts.length === productCart.length}
+                        onChange={handleSelectAll}
+                    />
+                    {checkoutSelectedProducts.length === productCart.length ? "Deselect" : "Select"} All
+                </h1>
             </div>
             <div className="">
 
@@ -109,6 +141,12 @@ const Cart = ({ cart, setCart }) => {
                         {productCart?.map((product, index) =>
                             <li key={index} className="flex flex-col py-6 sm:flex-row sm:justify-between">
                                 <div className="flex  w-full  space-x-2 gap-2 lg:gap-10 sm:space-x-4">
+                                    <input
+                                        type="checkbox"
+                                        className='checkbox'
+                                        checked={isProductSelected(product)}
+                                        onChange={() => handleSelectProduct(product)}
+                                    />
                                     <img
                                         className="flex-shrink-0 object-cover w-20 h-20 dark:border- rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
                                         src={product.img[0]}
@@ -174,7 +212,7 @@ const Cart = ({ cart, setCart }) => {
                         )}
 
                     </ul>
-                    <div className="card w-fit h-fit  bg-[#bcd8886e] text-primary-content">
+                    <div className="card w-ful md:w-fit mx-auto h-fit  bg-[#bcd8886e] text-primary-content">
                         <div className="card-body text-center">
                             <p>Total amount <br />
                                 <span className="font-semibold text-3xl"> {subtotal} /-</span>
@@ -183,9 +221,9 @@ const Cart = ({ cart, setCart }) => {
                                 <Link to="/products" type="button" className="px-6 py-2 border rounded-md dark:border-violet-600">Back
                                     <span className="sr-only sm:not-sr-only">to shop</span>
                                 </Link>
-                                <button type="button" className="px-6 py-2 border rounded-md dark:bg-violet-600 dark:text-gray-50 dark:border-violet-600">
-                                    <span className="sr-only sm:not-sr-only">Continue to</span>Checkout
-                                </button>
+                                <Link to="/orders" type="button" className="px-6 py-2 border rounded-md dark:bg-violet-600 dark:text-gray-50 dark:border-violet-600">
+                                    <span className="sr-only sm:not-sr-only">Continue to </span>Checkout
+                                </Link>
                             </div>
                         </div>
                     </div>
