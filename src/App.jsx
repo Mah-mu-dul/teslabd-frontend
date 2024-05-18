@@ -13,11 +13,17 @@ import { ToastContainer } from "react-toastify"
 
 function App() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
-  const [checkoutSelectedProducts, setCheckoutSelectedProducts] = useState([]);
+  const [checkoutSelectedProducts, setCheckoutSelectedProducts] = useState(JSON.parse(localStorage?.getItem('checkoutSelectedProducts')) || []);
+  const [placedOrders, setPlacedOrders] = useState(JSON.parse(localStorage.getItem('placedOrders')) || []);
+
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    localStorage.setItem('checkoutSelectedProducts', JSON.stringify(checkoutSelectedProducts));
+    localStorage.setItem('placedOrders', JSON.stringify(placedOrders));
+
+  }, [cart, checkoutSelectedProducts, placedOrders]);
+
 
   return (
     <main className="w-full max-w-[1500px] mx-auto bg-lime-100 min-h-screen">
@@ -35,6 +41,10 @@ function App() {
           <Orders
             checkoutSelectedProducts={checkoutSelectedProducts}
             setCheckoutSelectedProducts={setCheckoutSelectedProducts}
+            placedOrders={placedOrders}
+            setPlacedOrders={setPlacedOrders}
+            cart={cart}
+            setCart={setCart}
           />}
         />
         <Route path="/cart" element={

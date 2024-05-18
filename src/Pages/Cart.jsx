@@ -5,10 +5,24 @@ import { toast } from 'react-toastify';
 
 const Cart = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProducts }) => {
     const [productCart, setProductCart] = useState([]);
-    const [subtotal, setSubtotal] = useState(0)
-
+    const [cartSubtotal, setCartSubtotal] = useState(0)
+    const [selectedSubtotal, setSelectedSubtotal] = useState(0)
+    console.log(checkoutSelectedProducts);
+    useEffect(() => {
+        setCheckoutSelectedProducts(productCart
+            .filter(product => product.isSelected)
+            .map(({ id, orderQuantity, img, price, title }) => ({ title, id, quantity: orderQuantity, img, price }))
+        );
+    }, [cart, productCart])
     // console.log(cart);
     // console.log(productCart);
+
+    useEffect(() => {
+        setSelectedSubtotal(productCart
+            .filter(product => product.isSelected)
+            .reduce((subtotal, product) => subtotal + (product.price * product.orderQuantity), 0)
+        )
+    }, [productCart])
 
     useEffect(() => {
         // fetch('../db/products.json')
@@ -20,13 +34,14 @@ const Cart = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProd
             if (cartItem) {
                 return {
                     ...product,
-                    orderQuantity: cartItem.quantity // Renamed to orderQuantity
+                    orderQuantity: cartItem.quantity, // Renamed to orderQuantity
+                    isSelected: checkoutSelectedProducts.some(item => item.id === product.id)
                 };
             }
             return null; // Return null for products not in the cart
         }).filter(item => item !== null); // Filter out null values
         setProductCart(productCart);
-        setSubtotal(cart.reduce((total, item) => total + item.ProductTotalPrice, 0))
+        setCartSubtotal(cart.reduce((total, item) => total + item.ProductTotalPrice, 0))
 
         // });
     }, [cart]);
@@ -58,24 +73,25 @@ const Cart = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProd
 
     // select products for checkout
     const handleSelectProduct = (product) => {
-        if (checkoutSelectedProducts.some(selected => selected.id === product.id)) {
-            setCheckoutSelectedProducts(checkoutSelectedProducts.filter(selected => selected.id !== product.id));
-        } else {
-            setCheckoutSelectedProducts([...checkoutSelectedProducts, product]);
-        }
+        setProductCart(prevProductCart =>
+            prevProductCart.map(item =>
+                item.id === product.id ? { ...item, isSelected: !item.isSelected } : item
+            )
+        )
     };
 
     const handleSelectAll = () => {
-        if (checkoutSelectedProducts.length === productCart.length) {
-            setCheckoutSelectedProducts([]);
+        if (checkoutSelectedProducts?.length === productCart?.length) {
+            setProductCart(prevProductCart =>
+                prevProductCart.map(item => ({ ...item, isSelected: false }))
+            );
         } else {
-            setCheckoutSelectedProducts(productCart);
+            setProductCart(prevProductCart =>
+                prevProductCart.map(item => ({ ...item, isSelected: true }))
+            );
         }
     };
 
-    const isProductSelected = (product) => {
-        return checkoutSelectedProducts.some(selected => selected.id === product.id);
-    };
 
     return (
         <div className="container mx-auto px-4 py-8 ">
@@ -86,10 +102,10 @@ const Cart = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProd
                     <input
                         className='checkbox'
                         type="checkbox"
-                        checked={checkoutSelectedProducts.length === productCart.length}
+                        checked={checkoutSelectedProducts?.length === productCart.length}
                         onChange={handleSelectAll}
                     />
-                    {checkoutSelectedProducts.length === productCart.length ? "Deselect" : "Select"} All
+                    {checkoutSelectedProducts?.length === productCart.length ? "Deselect" : "Select"} All
                 </h1>
             </div>
             <div className="">
@@ -144,28 +160,30 @@ const Cart = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProd
                                     <input
                                         type="checkbox"
                                         className='checkbox'
-                                        checked={isProductSelected(product)}
+                                        checked={product.isSelected}
                                         onChange={() => handleSelectProduct(product)}
                                     />
                                     <img
+                                        onClick={() => handleSelectProduct(product)}
                                         className="flex-shrink-0 object-cover w-20 h-20 dark:border- rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
                                         src={product.img[0]}
                                         alt="Polaroid camera"
                                     />
                                     <div className="flex flex-col justify-between w-full pb-4">
                                         <div className=" block md:flex justify-between w-full pb-2 space-x-2">
-                                            <div className="space-y-1">
+                                            <div onClick={() => handleSelectProduct(product)} className=" space-y-1">
                                                 <h3 className="text-lg font-semibold leading-snug sm:pr-8 max-w-96 text-wrap"> {product.title}</h3>
                                                 <p className="text-sm dark:text-gray-600">Classic</p>
                                             </div>
-                                            <div className=" ">
+                                            <div className="w-fit ">
                                                 <div className="text-left lg:text-right">
                                                     <p className="text-md font-semibold">Unit Price: <span className='text-xl min-w-32'>{product.price} /-</span> </p>
                                                     <p className="text-md font-semibold">Total Price: <span className='text-xl min-w-32'>{product.price * product.orderQuantity} /-</span></p>
                                                 </div>
                                                 <div className="flex items-center justify-end mt-3">
+                                                    <p>Quantity: </p>
                                                     <button
-                                                        className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 "
+                                                        className="flex ml-2 h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 "
                                                         onClick={() => handleDecreaseQuantity(product.id)}                                                    >
                                                         −
                                                     </button>
@@ -214,8 +232,11 @@ const Cart = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProd
                     </ul>
                     <div className="card w-ful md:w-fit mx-auto h-fit  bg-[#bcd8886e] text-primary-content">
                         <div className="card-body text-center">
-                            <p>Total amount <br />
-                                <span className="font-semibold text-3xl"> {subtotal} /-</span>
+                            <p>Cart subtotal <br />
+                                <span className="font-semibold text-3xl"> {cartSubtotal} /-</span>
+                            </p>
+                            <p>Selected subtotal<br />
+                                <span className="font-semibold text-3xl"> {selectedSubtotal} /-</span>
                             </p>
                             <div className="flex justify-end space-x-4">
                                 <Link to="/products" type="button" className="px-6 py-2 border rounded-md dark:border-violet-600">Back
