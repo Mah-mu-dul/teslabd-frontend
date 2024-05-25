@@ -7,6 +7,7 @@ const Cart = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProd
     const [productCart, setProductCart] = useState([]);
     const [cartSubtotal, setCartSubtotal] = useState(0)
     const [selectedSubtotal, setSelectedSubtotal] = useState(0)
+    
     console.log(checkoutSelectedProducts);
     useEffect(() => {
         setCheckoutSelectedProducts(productCart

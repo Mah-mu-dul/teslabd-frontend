@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { MdEdit, MdEditOff } from "react-icons/md";
 
 import { toast } from "react-toastify";
+import PlacedOrders from "../Components/PlacedOrders";
 
-const Orders = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProducts, placedOrders, setPlacedOrders }) => {
+const Orders = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProducts, setPlacedOrders }) => {
     console.log(cart, checkoutSelectedProducts);
     // Initialize state with the calculated subtotal
     const [subtotal, setSubtotal] = useState(checkoutSelectedProducts?.reduce(
@@ -20,10 +21,10 @@ const Orders = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedPr
 
     const handleDelete = id => {
         setCheckoutSelectedProducts(checkoutSelectedProducts.filter(c => c.id !== id));
-        console.log(checkoutSelectedProducts);
         removeNotify()
     }
 
+    console.log(checkoutSelectedProducts);
     const removeNotify = () => {
         toast.warning("Item Removed");
     }
@@ -59,40 +60,47 @@ const Orders = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedPr
     //  handling the order
     const [order, setOrder] = useState({
         orderId: 1,
-        deliveryInfo: deliveryInfo,
-        products: checkoutSelectedProducts,
-        orderDate: "",
+        deliveryInfo: {},
+        products: [],
+        orderDate: new Date().toISOString(),
         approxDeliveryDate: "",
         orderStatus: "placed",
-        spacialNote: ""
-
-    })
+        specialNote: ""
+    });
 
     useEffect(() => {
+
         setOrder({
             orderId: 1,
             deliveryInfo: deliveryInfo,
             products: checkoutSelectedProducts.map(p => ({
                 id: p.id,
-                orderQuantity: p.orderQuantity
+                orderQuantity: p.quantity,
+                price: p.price
             })),
-            orderDate: "",
-            approxDeliveryDate: "",
+            orderDate: new Date().toISOString(),  // Setting the current date for orderDate
+            approxDeliveryDate: "",  // Set this appropriately if needed
             orderStatus: "placed",
-            spacialNote: ""
+            specialNote: ""
+        });
+    }, [checkoutSelectedProducts, deliveryInfo]);
 
-        })
-    }, [checkoutSelectedProducts, deliveryInfo])
     const handleOrder = () => {
-        setPlacedOrders(...placedOrders, order)
-        setCart(cart.filter(cartItem =>
-            !checkoutSelectedProducts.some(product => product.id === cartItem.productId)
-        ))
-        setCheckoutSelectedProducts([])
-    }
+        setPlacedOrders(prevPlacedOrders => [...prevPlacedOrders, order]);
+
+        setCart(prevCart =>
+            prevCart.filter(cartItem =>
+                !checkoutSelectedProducts.some(product => product.id === cartItem.productId)
+            )
+        );
+
+        setCheckoutSelectedProducts([]);
+    };
+    console.log(JSON.parse(localStorage.getItem('placedOrders')));
     return (
         <>
-            <h1 className="text-center my-8 text-3xl font-semibold"> Checkout page</h1>
+            <PlacedOrders />
+            <h1 className="text-center mt-8 text-xl font-semibold"> Checkout Product</h1>
             <div className="flex flex-wrap">
                 <div className="flex justify-between flex-wrap  gap-5 mx-auto">
                     <ul className="flex flex-col divide-y  dark:divide-gray-300 w-full lg:min-w-[700px] lg:w-fit pr-5">
