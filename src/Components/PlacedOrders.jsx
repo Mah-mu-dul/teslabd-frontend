@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import productsData from '../db/products.json';
 
 const PlacedOrders = () => {
-    const [placedOrders, setPlacedOrders] = useState(JSON.parse(localStorage.getItem('placedOrders') || []))
-    const [subTotal, setSubTotal] = useState(placedOrders.reduce(po => po.price * po.orderQuantity))
+    const [placedOrders, setPlacedOrders] = useState([])
+    // const [subTotal, setSubTotal] = useState(placedOrders.reduce(po => po.price * po.orderQuantity))
     useEffect(() => {
-        setPlacedOrders(JSON.parse(localStorage.getItem('placedOrders')))
-
+        fetch("http://localhost:3000/getOrders")
+            .then(res => res.json())
+            .then(data => setPlacedOrders(data))
     }, [])
+
+    console.log(placedOrders);
     return (
         <div>
             {placedOrders.length && <h2 className="text-xl">Current Orders: {placedOrders.length}</h2>}
@@ -16,7 +19,7 @@ const PlacedOrders = () => {
                     placedOrders.map((order, i) => <>
                         <div tabIndex={0} className="collapse collapse-arrow border ">
                             <div className="collapse-title text-md flex flex-wrap bg-[#4443] justify-between bg-transparent">
-                                <span>Order no: {i += 1} Order ID: {order.orderId}</span>git
+                                <span>Order no: {i += 1} Order ID: {order.orderId}</span>
                                 {/* calculate subtotal */}
                                 <span>
                                     Subtotal: {
@@ -24,7 +27,7 @@ const PlacedOrders = () => {
                                             productAcc + (product.price * product.orderQuantity), 0)
                                     }
                                 </span>
-                                <span className="text-orange-400">{order.orderDate.slice(0, 10)}</span>
+                                <span className="text-orange-400">{order.orderDate.slice(0, 10) + " || " + order.orderDate.slice(11, 16)}</span>
                             </div>
                             <div className="collapse-content">
                                 {/* <p>tabIndex={0} attribute is necessary to make the div focusable</p> */}

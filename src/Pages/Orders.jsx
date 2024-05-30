@@ -3,9 +3,9 @@ import { MdEdit, MdEditOff } from "react-icons/md";
 
 import { toast } from "react-toastify";
 import PlacedOrders from "../Components/PlacedOrders";
+import axios from "axios";
 
-const Orders = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProducts, setPlacedOrders }) => {
-    console.log(cart, checkoutSelectedProducts);
+const Orders = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedProducts }) => {
     // Initialize state with the calculated subtotal
     const [subtotal, setSubtotal] = useState(checkoutSelectedProducts?.reduce(
         (acc, item) => acc + item?.price * item?.orderQuantity,
@@ -86,17 +86,22 @@ const Orders = ({ cart, setCart, checkoutSelectedProducts, setCheckoutSelectedPr
     }, [checkoutSelectedProducts, deliveryInfo]);
 
     const handleOrder = () => {
-        setPlacedOrders(prevPlacedOrders => [...prevPlacedOrders, order]);
+        postOrder()
 
-        setCart(prevCart =>
-            prevCart.filter(cartItem =>
-                !checkoutSelectedProducts.some(product => product.id === cartItem.productId)
-            )
-        );
-
-        setCheckoutSelectedProducts([]);
     };
-    console.log(JSON.parse(localStorage.getItem('placedOrders')));
+
+    const postOrder = async () => {
+        const response = await axios.post('http://localhost:3000/postOrder', order);
+        console.log('Order posted:', response.data);
+        if ((response.data?.acknowledged)) {
+            setCart(prevCart =>
+                prevCart.filter(cartItem =>
+                    !checkoutSelectedProducts.some(product => product.id === cartItem.productId)
+                )
+            );
+            setCheckoutSelectedProducts([]);
+        }
+    }
     return (
         <>
             <PlacedOrders />

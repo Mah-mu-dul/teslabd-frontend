@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../Components/ProductCard";
 import ProductDetailsModal from "../Components/ProductDetailsModal";
-import productsData from '../db/products.json';
 
 const Products = ({ cart, setCart }) => {
 
     const [products, setProducts] = useState([])
     useEffect(() => {
-        // fetch(productsData)
-        //     .then(res => res.json())
-        //     .then(json => setProducts(json))
-        setProducts(productsData)
+        fetch("http://localhost:3000/getProducts")
+            .then(res => res.json())
+            .then(json => setProducts(json))
+        // setProducts(productsData)
     }, [])
-
     return (
         <div className="">
             {products.length < 1 ?

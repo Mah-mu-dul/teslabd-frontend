@@ -14,15 +14,13 @@ import { ToastContainer } from "react-toastify"
 function App() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
   const [checkoutSelectedProducts, setCheckoutSelectedProducts] = useState(JSON.parse(localStorage?.getItem('checkoutSelectedProducts')) || []);
-  const [placedOrders, setPlacedOrders] = useState(JSON.parse(localStorage.getItem('placedOrders')) || []);
 
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('checkoutSelectedProducts', JSON.stringify(checkoutSelectedProducts));
-    localStorage.setItem('placedOrders', JSON.stringify(placedOrders));
-
-  }, [cart, checkoutSelectedProducts, placedOrders]);
+    // localStorage.setItem('placedOrders', JSON.stringify(placedOrders));
+  }, [cart, checkoutSelectedProducts]);
 
 
   return (
@@ -41,8 +39,6 @@ function App() {
           <Orders
             checkoutSelectedProducts={checkoutSelectedProducts}
             setCheckoutSelectedProducts={setCheckoutSelectedProducts}
-            placedOrders={placedOrders}
-            setPlacedOrders={setPlacedOrders}
             cart={cart}
             setCart={setCart}
           />}
